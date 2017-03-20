@@ -8,4 +8,11 @@ if (!startUrl) {
 
 const Crwlr = require('./lib/crwlr');
 const crwlr = new Crwlr(startUrl);
+const fs = require('fs');
+
+crwlr.on('crwlr.crawl.complete', function(sitemap) {
+    var fileName = __dirname + '/sitemap.json';
+    console.log('Writing site map to', fileName);
+    fs.writeFileSync(fileName, JSON.stringify(sitemap, null, "\t"));
+});
 crwlr.crawl();
