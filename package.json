@@ -1,14 +1,14 @@
 {
-  "name": "crawler",
+  "name": "crwlr",
   "version": "0.0.1",
   "description": "A web crawler",
   "main": "index.js",
   "scripts": {
-    "test": "node_modules/mocha/bin/mocha ./tests/*/unit/*.js"
+    "test": "node_modules/mocha/bin/mocha ./tests/*/unit/*-test.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/uehondor/crawler.git"
+    "url": "git+ssh://git@github.com:uehondor/crwlr.git"
   },
   "keywords": [
     "web",
@@ -17,10 +17,15 @@
   "author": "Uyi Ehondor",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/uehondor/crawler/issues"
+    "url": "https://github.com/uehondor/crwlr/issues"
   },
-  "homepage": "https://github.com/uehondor/crawler#readme",
+  "homepage": "https://github.com/uehondor/crwlr#readme",
   "dependencies": {
     "request": "2.79.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mock-require": "^2.0.1",
+    "sinon": "^2.0.0"
   }
 }
