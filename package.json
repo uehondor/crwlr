@@ -4,7 +4,7 @@
   "description": "A web crawler",
   "main": "index.js",
   "scripts": {
-    "test": "node_modules/mocha/bin/mocha ./tests/*/unit/*-test.js"
+    "test": "node_modules/mocha/bin/mocha ./tests/*/unit/*-test.js ./tests/*/unit/*/*-test.js"
   },
   "repository": {
     "type": "git",
