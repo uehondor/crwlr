@@ -23,7 +23,7 @@ describe('HtmlUrlFinder', function() {
             return 'http://example.com';
         };
 
-        EventEmitter.prototype.queueUrl = function() {};
+        EventEmitter.prototype.queueUrl = sinon.stub();
 
         var events = new EventEmitter();
         var pageUrl = 'http://example.com/foo';
@@ -47,14 +47,14 @@ describe('HtmlUrlFinder', function() {
 
         events.emit('crwlr.visitor.post-visit', new Page(pageUrl, rawBody));
 
-        sinon.assert.callCount(mockSitemapBuilder.addPageUrl, 2);
-        assert.deepEqual(
-            mockSitemapBuilder.addPageUrl.getCall(0).args,
-            ['http://example.com/foo', 'http://example.com/bar']
-        );
-        assert.deepEqual(
-            mockSitemapBuilder.addPageUrl.getCall(1).args,
-            ['http://example.com/foo', 'http://example.com/baz']
-        );
+        sinon.assert.callCount(mockSitemapBuilder.addPageUrl, 4);
+        assert.deepEqual(mockSitemapBuilder.addPageUrl.getCall(0).args, [pageUrl, '/bar']);
+        assert.deepEqual(mockSitemapBuilder.addPageUrl.getCall(1).args, [pageUrl, 'http://example.com/baz']);
+        assert.deepEqual(mockSitemapBuilder.addPageUrl.getCall(2).args, [pageUrl, 'http://google.com']);
+        assert.deepEqual(mockSitemapBuilder.addPageUrl.getCall(3).args, [pageUrl, 'http://facebook.com']);
+
+        sinon.assert.callCount(events.queueUrl, 2);
+        assert.deepEqual(events.queueUrl.getCall(0).args, ['http://example.com/bar']);
+        assert.deepEqual(events.queueUrl.getCall(1).args, ['http://example.com/baz']);
     });
 });
