@@ -15,15 +15,14 @@ describe('ImageUrlFinder', function() {
             addImageUrl: sinon.stub()
         };
         imageUrlFinder = new ImageUrlFinder(mockSitemapBuilder);
-    });
 
-    it('extracts urls from html document', function () {
+        EventEmitter.prototype.queueUrl = function() {};
         EventEmitter.prototype.getBaseUrl = function() {
             return 'http://example.com';
         };
+    });
 
-        EventEmitter.prototype.queueUrl = function() {};
-
+    it('extracts urls from html document', function () {
         var events = new EventEmitter();
         var pageUrl = 'http://example.com/foo';
         var rawBody = `<!DOCTYPE html>
@@ -44,6 +43,7 @@ describe('ImageUrlFinder', function() {
     <a href="http://google.com">Google</a>
     <a href="http://facebook.com">Facebook</a>
     <img src="http://facebook.com/images/foo.img" />
+    <div style="background: url(http://images.example.com/image1.jpg)"></div>
   </body>
 </html>`;
 
@@ -51,10 +51,14 @@ describe('ImageUrlFinder', function() {
 
         events.emit('crwlr.visitor.post-visit', new Page(pageUrl, rawBody));
 
-        sinon.assert.callCount(mockSitemapBuilder.addImageUrl, 1);
+        sinon.assert.callCount(mockSitemapBuilder.addImageUrl, 2);
         assert.deepEqual(
             mockSitemapBuilder.addImageUrl.getCall(0).args,
-            ['http://example.com/foo', 'http://facebook.com/images/foo.img']
+            [pageUrl, 'http://images.example.com/image1.jpg']
+        );
+        assert.deepEqual(
+            mockSitemapBuilder.addImageUrl.getCall(1).args,
+            [pageUrl, 'http://facebook.com/images/foo.img']
         );
     });
 });
