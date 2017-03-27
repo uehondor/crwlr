@@ -22,10 +22,13 @@
   },
   "homepage": "https://github.com/uehondor/crwlr#readme",
   "dependencies": {
+    "cheerio": "^0.22.0",
+    "lodash": "^4.17.4",
     "request": "2.79.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",
+    "mocha": "^3.2.0",
     "mock-require": "^2.0.1",
     "sinon": "^2.0.0"
   }
