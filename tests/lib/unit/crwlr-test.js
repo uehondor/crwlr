@@ -22,10 +22,14 @@ describe('Crwlr', function() {
         mock('../../../lib/page-parser/css-url-finder', function() {
             this.register = function() {};
         });
+        mock('../../../lib/page-parser/javascript-url-finder', function() {
+            this.register = function() {};
+        });
+        mock('../../../lib/page-parser/image-url-finder', function() {
+            this.register = function() {};
+        });
 
         mockVisitor = require('../../../lib/visitor');
-        mockHtmlUrlFinder = require('../../../lib/page-parser/html-url-finder');
-        mockHtmlUrlFinder = require('../../../lib/page-parser/css-url-finder');
 
         let Crwlr = require('../../../lib/crwlr.js');
         crwlr = new Crwlr(url);

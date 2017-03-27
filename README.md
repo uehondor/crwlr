@@ -25,6 +25,11 @@ $ npm start -- http://example.com
 
 When crawling is complete, a map of the website is dumped in JSON format to `./sitemap.json`.
 
+## Running tests
+```
+$ npm test
+```
+
 ## Todo
 * Rate limit requests to `n per time`
     * Provide options to control the limit
